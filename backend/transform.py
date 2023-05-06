@@ -65,5 +65,4 @@ def remove_builtins_from_components(components):
             schema["required"] = [r for r in schema["required"] if r != "test" and r != "q"]
             schema["properties"].pop("test", None)
             schema["properties"].pop("q", None)
-    new_components["schemas"].pop("Question")
     return new_components
