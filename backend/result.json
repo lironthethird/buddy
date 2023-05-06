@@ -1,0 +1,160 @@
+{
+  "components": {
+    "schemas": {
+      "Body_teacher_check_api_math_check_teacher_post": {
+        "title": "Body_teacher_check_api_math_check_teacher_post",
+        "required": [
+          "teacher_name",
+          "teacher_id"
+        ],
+        "type": "object",
+        "properties": {
+          "teacher_name": {
+            "title": "Teacher Name",
+            "type": "string"
+          },
+          "teacher_id": {
+            "title": "Teacher Id",
+            "type": "string"
+          }
+        }
+      },
+      "Body_validate_grade_api_math_validate_test_grade_post": {
+        "title": "Body_validate_grade_api_math_validate_test_grade_post",
+        "required": [],
+        "type": "object",
+        "properties": {
+          "max_grade": {
+            "title": "Max Grade",
+            "type": "integer",
+            "default": 100
+          }
+        }
+      },
+      "Body_validate_positive_api_math_validate_question_positive_post": {
+        "title": "Body_validate_positive_api_math_validate_question_positive_post",
+        "required": [
+          "bruh"
+        ],
+        "type": "object",
+        "properties": {
+          "bruh": {
+            "title": "Bruh",
+            "type": "integer"
+          }
+        }
+      },
+      "Body_validate_question_length_api_math_validate_question_length_post": {
+        "title": "Body_validate_question_length_api_math_validate_question_length_post",
+        "required": [],
+        "type": "object",
+        "properties": {
+          "max_length": {
+            "title": "Max Length",
+            "type": "integer",
+            "default": 10
+          }
+        }
+      },
+      "Body_validate_test_length_api_math_validate_test_length_post": {
+        "title": "Body_validate_test_length_api_math_validate_test_length_post",
+        "required": [],
+        "type": "object",
+        "properties": {}
+      },
+      "HTTPValidationError": {
+        "title": "HTTPValidationError",
+        "type": "object",
+        "properties": {
+          "detail": {
+            "title": "Detail",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            }
+          }
+        }
+      },
+      "ValidationError": {
+        "title": "ValidationError",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "loc": {
+            "title": "Location",
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            }
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "question_validations": {
+          "type": "object",
+          "properties": {
+            "positive": {
+              "$ref": "#/components/schemas/Body_validate_positive_api_math_validate_question_positive_post",
+              "additionalProperties": false
+            },
+            "length": {
+              "$ref": "#/components/schemas/Body_validate_question_length_api_math_validate_question_length_post",
+              "additionalProperties": false
+            }
+          }
+        },
+        "test_validations": {
+          "type": "object",
+          "properties": {
+            "length": {
+              "$ref": "#/components/schemas/Body_validate_test_length_api_math_validate_test_length_post",
+              "additionalProperties": false
+            },
+            "grade": {
+              "$ref": "#/components/schemas/Body_validate_grade_api_math_validate_test_grade_post",
+              "additionalProperties": false
+            }
+          }
+        },
+        "check": {
+          "$ref": "#/components/schemas/Body_teacher_check_api_math_check_teacher_post",
+          "additionalProperties": false
+        },
+        "type": {
+          "type": "string",
+          "const": "math"
+        }
+      },
+      "required": [
+        "question_validations",
+        "test_validations",
+        "check"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}
